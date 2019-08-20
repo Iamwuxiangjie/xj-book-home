@@ -1,2 +1,14 @@
+spring:
+  profiles:
+    active: dev
+  http:
+    encoding:
+      charset: UTF-8
+    servlet:
+      multipart:
+        max-file-size: 50MB
+        max-request-size: 50MB
+
 server:
-      port: 8000
+  port: 8001
+  use-forward-headers: true
