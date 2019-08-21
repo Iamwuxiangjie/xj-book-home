@@ -41,6 +41,11 @@ public class User {
         this.password = encoder.encode(password);
     }
 
+    public Boolean checkPassword(String password){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(password, this.getPassword());
+    }
+
     @Getter
     @Setter
     private Boolean active = true;

@@ -10,6 +10,7 @@
 
     <modules>
         <module>xj-book-home-api</module>
+        <module>xj-book-home-web</module>
     </modules>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>

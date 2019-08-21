@@ -33,4 +33,9 @@ public class TestController {
         }
         return hasExist;
     }
+
+    @GetMapping("/")
+    public User get(){
+        return userDao.findByPhone("wuxj");
+    }
 }
