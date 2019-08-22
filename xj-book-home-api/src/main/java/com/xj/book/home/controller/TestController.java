@@ -1,22 +1,25 @@
 package com.xj.book.home.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xj.book.home.dao.UserDao;
 import com.xj.book.home.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @RestController
+@RequestMapping("/test")
 public class TestController {
 
     @Autowired
     private UserDao userDao;
 
-    @GetMapping("/test/{id}")
+    @GetMapping("/{id}")
     public User test(@PathVariable("id") String id){
         return userDao.findById(id).get();
     }
@@ -34,8 +37,28 @@ public class TestController {
         return hasExist;
     }
 
-    @GetMapping("/")
-    public User get(){
-        return userDao.findByPhone("wuxj");
+    @GetMapping("/get")
+    public JSONObject get(@RequestParam("name") String name){
+        return ok(name);
+    }
+
+    @PostMapping("/post")
+    public JSONObject post(@RequestParam("name") String name){
+        return ok(name);
+    }
+
+    @GetMapping("/error")
+    public JSONObject error(@RequestParam("name") String name){
+        Assert.isTrue(name==null,"我错了");
+        return ok(name);
+    }
+
+
+    private JSONObject ok(String message){
+        Map<String,Object> result= new HashMap(){{
+           put("code",1);
+           put("data",message);
+        }};
+        return new JSONObject(result);
     }
 }

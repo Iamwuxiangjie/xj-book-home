@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //登录权限控制
         config.and().authorizeRequests()
-                .antMatchers("/","/login","/add/**").permitAll()
+                .antMatchers("/","/login","/test/**").permitAll()
                 .anyRequest().authenticated().and().csrf().disable()
                 .formLogin()
                 .loginPage("/")
