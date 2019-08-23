@@ -4,6 +4,7 @@ package com.xj.book.home.config;
 import com.xj.book.home.dao.UserDao;
 import com.xj.book.home.model.User;
 import com.xj.book.home.service.UserService;
+import com.xj.book.home.utils.MapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -83,7 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
             httpServletResponse.setContentType("application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write("login success");
+            User user= (User) authentication.getPrincipal();
+            httpServletResponse.getWriter().write(MapperUtils.originalOk(user));
         }
     }
 
@@ -93,7 +95,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
             httpServletResponse.setContentType("application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write("login fail");
+            httpServletResponse.getWriter().write(MapperUtils.originalError("用户名或密码错误"));
         }
     }
 
@@ -102,7 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         @Override
         public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
             httpServletResponse.setContentType("application/json;charset=UTF-8");
-            httpServletResponse.getWriter().write("logout success");
+            httpServletResponse.getWriter().write(MapperUtils.originalOk("退出成功"));
         }
     }
 
@@ -114,7 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             String password = authentication.getCredentials().toString();
             User user = userService.login(username, password);
             if (Objects.isNull(user)){
-                throw new InternalAuthenticationServiceException("用户或密码错误");
+                throw new InternalAuthenticationServiceException("用户名或密码错误");
             }
             if (!user.getActive()) {
                 throw new InternalAuthenticationServiceException("账户已停用");
@@ -129,4 +131,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             return aClass.isAssignableFrom(UsernamePasswordAuthenticationToken.class);
         }
     }
+
+
 }
