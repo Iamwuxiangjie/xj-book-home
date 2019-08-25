@@ -1,57 +1,38 @@
 package com.xj.book.home.model;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.index.CompoundIndexes;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import lombok.Data;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-@Document(collection="user")
-public class User {
+@Entity
+@Table(name = "user")
+@Data
+public class User implements Serializable {
 
     @Id
-    @JsonIgnore
-    @Getter
-    @Setter
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
+    @SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 1)
+    private Long  id;
 
-    @Getter
-    @Setter
-    private String nickname;
+    private String name;
 
-    @Getter
-    @Setter
-    @Indexed(unique = true,background = true)
-    private String phone;
-
-    @JsonIgnore
-    @Getter
     private String password;
 
-    public void setPassword(String password){
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        this.password = encoder.encode(password);
-    }
+    private String headImg;
 
-    public Boolean checkPassword(String password){
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder.matches(password, this.getPassword());
-    }
+    private String email;
 
-    @Getter
-    @Setter
-    private Boolean active = true;
-
-    @Getter
-    @Setter
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-    private Date lastLoginTime;
+    private Date birthday;
 }
+
+
+

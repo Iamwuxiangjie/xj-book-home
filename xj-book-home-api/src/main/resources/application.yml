@@ -4,11 +4,10 @@ spring:
   http:
     encoding:
       charset: UTF-8
-    servlet:
-      multipart:
-        max-file-size: 50MB
-        max-request-size: 50MB
-
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
 server:
-  port: 8001
   use-forward-headers: true
+  port: 8000
