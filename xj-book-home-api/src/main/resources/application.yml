@@ -8,6 +8,8 @@ spring:
       multipart:
         max-file-size: 50MB
         max-request-size: 50MB
+logging:
+  file: /log/xj-book-home.log
 
 server:
   port: 8001

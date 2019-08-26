@@ -1,39 +1,37 @@
 package com.xj.book.home.model;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.CompoundIndex;
-import org.springframework.data.mongodb.core.index.CompoundIndexes;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.persistence.*;
 import java.util.Date;
 
-@Document(collection="user")
+
+@Entity
+@Table(name="user")
+@GenericGenerator(name = "user_uuid", strategy = "uuid")
 public class User {
 
     @Id
-    @JsonIgnore
+    @GeneratedValue(generator = "user_uuid")
+    @Column(length = 32)
     @Getter
     @Setter
-    private String id;
+    private String uid;
 
+    @Column(length = 11,unique=true,nullable = false)
     @Getter
     @Setter
-    private String nickname;
-
-    @Getter
-    @Setter
-    @Indexed(unique = true,background = true)
     private String phone;
 
-    @JsonIgnore
+    @Column(length = 64,nullable = false)
     @Getter
+    @JsonIgnore
     private String password;
 
     public void setPassword(String password){

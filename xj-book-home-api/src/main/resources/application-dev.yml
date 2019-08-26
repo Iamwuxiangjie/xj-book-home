@@ -1,9 +1,11 @@
 spring:
   jpa:
+    database: MYSQL
     show-sql: true
     hibernate:
       ddl-auto: update
       use-new-id-generator-mappings: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     properties:
       hibernate.order_by.default_null_ordering: last
       hibernate:
@@ -11,8 +13,13 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
     generate-ddl: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/xj-book-home?serverTimezone=UTC
+    username: wuxj
+    password: 123
   data:
     mongodb:
       host: localhost
       port: 27017
-      database: test
+      database: xj-book-home
