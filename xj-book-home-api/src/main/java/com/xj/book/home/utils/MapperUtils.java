@@ -1,14 +1,11 @@
 package com.xj.book.home.utils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import com.mongodb.util.JSONParseException;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -64,50 +61,57 @@ public class MapperUtils {
         return null;
     }
 
-    public static String originalSuccess(Object body) {
+    public static String originalSuccess(Object... body) {
         return writeMap(returnModel(200, body));
     }
 
-    public static String originalFail(Object body) {
+    public static String originalFail(Object... body) {
         return writeMap(returnModel(406, body));
     }
 
-    public static String originalForward(Object body) {
+    public static String originalForward(Object... body) {
         return writeMap(returnModel(302, body));
     }
 
-    public static String originalDenied(Object body) {
+    public static String originalDenied(Object... body) {
         return writeMap(returnModel(403, body));
     }
-    public static String originalError(Object body) {
+
+    public static String originalError(Object... body) {
         return writeMap(returnModel(500, body));
     }
 
-    public static Map<String, Object> success(Integer status, Object body) {
+    public static Map<String, Object> success(Object... body) {
         return returnModel(200, body);
     }
 
-    public static Map<String, Object> fail(Integer status, Object body) {
+    public static Map<String, Object> fail(Object... body) {
         return returnModel(406, body);
     }
 
-    public static Map<String, Object> forward(Integer status, Object body) {
+    public static Map<String, Object> forward(Object... body) {
         return returnModel(302, body);
     }
 
-    public static Map<String, Object> denied(Integer status, Object body) {
+    public static Map<String, Object> denied(Object... body) {
         return returnModel(403, body);
     }
 
-    public static Map<String, Object> error(Integer status, Object body) {
+    public static Map<String, Object> error(Object... body) {
         return returnModel(500, body);
     }
 
-    private static Map<String, Object> returnModel(Integer status, Object body) {
+    private static Map<String, Object> returnModel(Integer status, Object[] body) {
         Map<String, Object> map = new HashMap();
         map.put("status", status);
-        map.put("body", body);
         map.put("bodyText", "");
+        if (body.length == 1) {
+            map.put("body", body);
+            return map;
+        }
+        for (int index = 0; index < body.length; index += 2) {
+            map.put(body[index].toString(), body[index + 1]);
+        }
         return map;
     }
 }

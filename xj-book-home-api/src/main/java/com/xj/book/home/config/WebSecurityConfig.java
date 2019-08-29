@@ -1,16 +1,12 @@
 package com.xj.book.home.config;
 
 
-import com.xj.book.home.dao.RoleDao;
-import com.xj.book.home.dao.RolePermissionDao;
 import com.xj.book.home.dao.UserDao;
-import com.xj.book.home.dao.UserRoleDao;
 import com.xj.book.home.model.User;
-import com.xj.book.home.model.UserRole;
+import com.xj.book.home.service.BaseService;
 import com.xj.book.home.service.UserService;
 import com.xj.book.home.utils.MapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -26,7 +22,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -43,11 +38,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
@@ -58,18 +51,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDao userDao;
 
     @Autowired
-    private UserRoleDao userRoleDao;
-
-    @Autowired
-    private RoleDao roleDao;
-
-    @Autowired
     private UserService userService;
 
     @Autowired
     private DataSource dataSource;
 
-
+    @Autowired
+    private BaseService baseService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -102,14 +90,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .alwaysRemember(true);
     }
 
-
-    private PersistentTokenRepository getPersistentTokenRepository(){
-        JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
-        tokenRepositoryImpl.setDataSource(dataSource);
-        return tokenRepositoryImpl;
-    }
-
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth){
         auth.authenticationProvider(new MyAuthenticationProvider());
@@ -118,6 +98,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private PersistentTokenRepository getPersistentTokenRepository(){
+        JdbcTokenRepositoryImpl tokenRepositoryImpl = new JdbcTokenRepositoryImpl();
+        tokenRepositoryImpl.setDataSource(dataSource);
+        return tokenRepositoryImpl;
     }
 
     private class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
@@ -193,8 +179,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            List<UserRole> userRoles = userRoleDao.findByUserId(this.user.getId());
-            List<String> roles = userRoles.stream().map(item -> String.format("ROLE_%s",roleDao.findById(item.getRoleId()).get().getName())).collect(Collectors.toList());
+            List<String> roles = baseService.listByUserId(this.user.getId());
             String[] authoritys = roles.toArray(new String[]{});
             List<GrantedAuthority> authorityList = AuthorityUtils.createAuthorityList(authoritys);
             return authorityList;

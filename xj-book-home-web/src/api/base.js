@@ -7,11 +7,7 @@ const decorate_url = ({origin, url, getBody = {}, postBody = {}}) => {
   if (getBody !== {}) {
     let getBodyDataList = [];
     for (let key in getBody) {
-      if (key === '$state') {
-        result.$state = getBody[key];
-      } else {
-        getBodyDataList.push(key + "=" + getBody[key])
-      }
+      getBodyDataList.push(key + "=" + getBody[key])
     }
     if (getBodyDataList.length > 0) {
       url += "?" + getBodyDataList.join("&");
