@@ -22,11 +22,14 @@
         <Button type="primary" @click="login">登录</Button>
       </FormItem>
     </Form>
+
+    <Button @click="test_admin">test_admin</Button>
+    <Button @click="test_user">test_user</Button>
   </div>
 </template>
 
 <script>
-  import {doLogin} from "../../api/login";
+  import {doLogin,doTestAdmin,doTestUser} from "../../api/login";
 
   export default {
     name: "Login",
@@ -49,6 +52,16 @@
     created() {
     },
     methods: {
+      async test_admin(){
+        const result =await doTestAdmin();
+        alert(JSON.stringify(result))
+      },
+
+      async test_user(){
+        const result =await doTestUser();
+        alert(JSON.stringify(result))
+      },
+
       login(){
         this.$refs['form'].validate(async (valid) => {
           if (valid) {

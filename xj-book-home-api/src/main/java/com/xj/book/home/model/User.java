@@ -22,7 +22,12 @@ public class User {
     @Column(length = 32)
     @Getter
     @Setter
-    private String uid;
+    private String id;
+
+    @Column(length = 32,unique=true,nullable = false)
+    @Getter
+    @Setter
+    private String username;
 
     @Column(length = 11,unique=true,nullable = false)
     @Getter
@@ -46,10 +51,22 @@ public class User {
 
     @Getter
     @Setter
+    @Column(columnDefinition = "int(1) not null default 1")
     private Boolean active = true;
 
     @Getter
     @Setter
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
     private Date lastLoginTime;
+
+    @Getter
+    @Setter
+    @Column(nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+    private Date createTime = new Date();
+
+    @Override
+    public String toString() {
+        return this.username;
+    }
 }

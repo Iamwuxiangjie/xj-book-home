@@ -1,21 +1,20 @@
 spring:
   jpa:
-    database: MYSQL
     show-sql: true
     hibernate:
-      ddl-auto: update
-      use-new-id-generator-mappings: true
+      ddl-auto: validate
+      use-new-id-generator-mappings: false
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    properties:
-      hibernate.order_by.default_null_ordering: last
-      hibernate:
-        enable_lazy_load_no_trans: true
-        temp:
-          use_jdbc_metadata_defaults: false
-    generate-ddl: true
+#    properties:
+#      hibernate.order_by.default_null_ordering: last
+#      hibernate:
+#        enable_lazy_load_no_trans: true
+#        temp:
+#          use_jdbc_metadata_defaults: false
+#    generate-ddl: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/xj-book-home?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/xj-book-home?serverTimezone=UTC
     username: wuxj
     password: 123
   data:
