@@ -81,6 +81,10 @@ public class MapperUtils {
         return writeMap(returnModel(500, body));
     }
 
+    public static String originalNotFound(Object... body) {
+        return writeMap(returnModel(404, body));
+    }
+
     public static Map<String, Object> success(Object... body) {
         return returnModel(200, body);
     }
@@ -106,7 +110,7 @@ public class MapperUtils {
         map.put("status", status);
         map.put("bodyText", "");
         if (body.length == 1) {
-            map.put("body", body);
+            map.put("body", body[0]);
             return map;
         }
         for (int index = 0; index < body.length; index += 2) {

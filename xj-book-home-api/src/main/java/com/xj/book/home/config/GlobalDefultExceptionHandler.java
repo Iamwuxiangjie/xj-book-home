@@ -5,6 +5,7 @@ import com.xj.book.home.utils.MapperUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,7 +15,10 @@ public class GlobalDefultExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public String defultExcepitonHandler(HttpServletRequest request, Exception e) {
-        return MapperUtils.originalError(e.getMessage().toString());
+        if (e instanceof NoHandlerFoundException) {
+            return MapperUtils.originalNotFound(e.getMessage());
+        }
+        return MapperUtils.originalError(e.getMessage());
     }
 
 }

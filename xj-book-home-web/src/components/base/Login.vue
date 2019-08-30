@@ -7,7 +7,7 @@
 
 <template>
   <div id="login_all">
-    <Form ref="form" :model="form" :rules="rules" inline>
+    <Form ref="form" :model="form" :rules="rules">
       <FormItem prop="username">
         <Input type="text" v-model="form.username" placeholder="请输入用户名">
           <Icon type="ios-person-outline" slot="prepend"></Icon>
@@ -22,14 +22,11 @@
         <Button type="primary" @click="login">登录</Button>
       </FormItem>
     </Form>
-
-    <Button @click="test_admin">test_admin</Button>
-    <Button @click="test_user">test_user</Button>
   </div>
 </template>
 
 <script>
-  import {doLogin,doTestAdmin,doTestUser} from "../../api/login";
+  import {doLogin} from "../../api/user.js";
 
   export default {
     name: "Login",
@@ -52,16 +49,6 @@
     created() {
     },
     methods: {
-      async test_admin(){
-        const result =await doTestAdmin();
-        alert(JSON.stringify(result))
-      },
-
-      async test_user(){
-        const result =await doTestUser();
-        alert(JSON.stringify(result))
-      },
-
       login(){
         this.$refs['form'].validate(async (valid) => {
           if (valid) {

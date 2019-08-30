@@ -35,10 +35,16 @@ router.afterEach(route => {
   iView.LoadingBar.finish();
 });
 
-new Vue({
-  el: '#app',
-  store,
-  router,
-  components: { App },
-  template: '<App/>',
+Promise.all([
+  store.dispatch('initSelf')
+]).then(([res1])=>{
+  new Vue({
+    el: '#app',
+    store,
+    router,
+    components: { App },
+    template: '<App/>',
+  })
 })
+
+
