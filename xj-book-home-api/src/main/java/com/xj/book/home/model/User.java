@@ -9,20 +9,13 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 
 @Entity
 @Table(name="user")
-@GenericGenerator(name = "user_uuid", strategy = "uuid")
-public class User {
-
-    @Id
-    @GeneratedValue(generator = "user_uuid")
-    @Column(length = 32)
-    @Getter
-    @Setter
-    private String id;
+public class User extends BaseEntity {
 
     @Column(length = 32,unique=true,nullable = false)
     @Getter
@@ -58,12 +51,6 @@ public class User {
     @Setter
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
     private Date lastLoginTime;
-
-    @Getter
-    @Setter
-    @Column(nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-    private Date createTime = new Date();
 
     @Override
     public String toString() {

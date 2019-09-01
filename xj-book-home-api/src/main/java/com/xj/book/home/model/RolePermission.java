@@ -6,20 +6,14 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 
 @Entity
 @Table(name="role_permission")
-@GenericGenerator(name = "role_permission_uuid", strategy = "uuid")
-public class RolePermission {
+public class RolePermission extends BaseEntity{
 
-    @Id
-    @GeneratedValue(generator = "role_permission_uuid")
-    @Column(length = 32)
-    @Getter
-    @Setter
-    private String id;
 
     @Column(nullable = false)
     @Getter
@@ -31,10 +25,4 @@ public class RolePermission {
     @Setter
     private String permissionId;
 
-
-    @Getter
-    @Setter
-    @Column(nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-    private Date createTime = new Date();
 }

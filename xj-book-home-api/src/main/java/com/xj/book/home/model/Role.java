@@ -6,19 +6,12 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="role")
-@GenericGenerator(name = "role_uuid", strategy = "uuid")
-public class Role {
-
-    @Id
-    @GeneratedValue(generator = "role_uuid")
-    @Column(length = 32)
-    @Getter
-    @Setter
-    private String id;
+public class Role extends BaseEntity {
 
     @Column(unique=true,nullable = false)
     @Getter
@@ -28,11 +21,4 @@ public class Role {
     @Getter
     @Setter
     private String description;
-
-
-    @Getter
-    @Setter
-    @Column(nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-    private Date createTime = new Date();
 }
