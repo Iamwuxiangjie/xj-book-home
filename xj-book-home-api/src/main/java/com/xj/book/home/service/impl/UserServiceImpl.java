@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isEmpty(password)){
             return null;
         }
-        User user=userDao.findByPhone(username);
+        User user=userDao.findFirstByPhone(username);
         if(Objects.isNull(user)){
             return null;
         }else if(user.checkPassword(password)){

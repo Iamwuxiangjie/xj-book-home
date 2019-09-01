@@ -14,10 +14,37 @@ Vue.config.productionTip = false
 Vue.use(vue_resource);
 Vue.use(iView);
 
-new Vue({
-  el: '#app',
-  store,
-  router,
-  components: { App },
-  template: '<App/>',
+Vue.http.interceptors.push((request, next) => {
+  iView.LoadingBar.start();
+  next((response) => {
+    if (!response.ok) {
+      iView.LoadingBar.error();
+    } else {
+      iView.LoadingBar.finish();
+    }
+    return response;
+  });
+});
+
+router.beforeEach((to, from, next) => {
+  iView.LoadingBar.start();
+  next();
+});
+
+router.afterEach(route => {
+  iView.LoadingBar.finish();
+});
+
+Promise.all([
+  store.dispatch('initSelf')
+]).then(([res1])=>{
+  new Vue({
+    el: '#app',
+    store,
+    router,
+    components: { App },
+    template: '<App/>',
+  })
 })
+
+

@@ -7,7 +7,7 @@
 
 <template>
   <div id="login_all">
-    <Form ref="form" :model="form" :rules="rules" inline>
+    <Form ref="form" :model="form" :rules="rules">
       <FormItem prop="username">
         <Input type="text" v-model="form.username" placeholder="请输入用户名">
           <Icon type="ios-person-outline" slot="prepend"></Icon>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import {doLogin} from "../../api/login";
+  import {doLogin} from "../../api/user.js";
 
   export default {
     name: "Login",

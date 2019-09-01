@@ -3,36 +3,70 @@ package com.xj.book.home.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.stereotype.Repository;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
+
 @Entity
-@Table(name = "user")
-@Data
-public class User implements Serializable {
+@Table(name="user")
+@GenericGenerator(name = "user_uuid", strategy = "uuid")
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
-    @SequenceGenerator(name = "user_id_seq", sequenceName = "user_id_seq", allocationSize = 1)
-    private Long  id;
+    @GeneratedValue(generator = "user_uuid")
+    @Column(length = 32)
+    @Getter
+    @Setter
+    private String id;
 
-    private String name;
+    @Column(length = 32,unique=true,nullable = false)
+    @Getter
+    @Setter
+    private String username;
 
+    @Column(length = 11,unique=true,nullable = false)
+    @Getter
+    @Setter
+    private String phone;
+
+    @Column(length = 64,nullable = false)
+    @Getter
+    @JsonIgnore
     private String password;
 
-    private String headImg;
+    public void setPassword(String password){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        this.password = encoder.encode(password);
+    }
 
-    private String email;
+    public Boolean checkPassword(String password){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(password, this.getPassword());
+    }
 
+    @Getter
+    @Setter
+    @Column(columnDefinition = "int(1) not null default 1")
+    private Boolean active = true;
+
+    @Getter
+    @Setter
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
-    private Date birthday;
+    private Date lastLoginTime;
+
+    @Getter
+    @Setter
+    @Column(nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
+    private Date createTime = new Date();
+
+    @Override
+    public String toString() {
+        return this.username;
+    }
 }
-
-
-

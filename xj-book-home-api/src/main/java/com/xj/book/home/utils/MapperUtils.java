@@ -1,21 +1,18 @@
 package com.xj.book.home.utils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
-import com.mongodb.util.JSONParseException;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapperUtils{
+public class MapperUtils {
 
     private static ObjectMapper mapper = new ObjectMapper(new JsonFactory());
 
@@ -27,11 +24,11 @@ public class MapperUtils{
     }
 
 
-    public static Object readObject(String json, Class model) throws Exception{
+    public static Object readObject(String json, Class model) throws Exception {
         return mapper.readValue(json, model);
     }
 
-    public static List readObjects(String json, Class model) throws Exception{
+    public static List readObjects(String json, Class model) throws Exception {
         JavaType javaType = mapper.getTypeFactory().constructParametricType(model, model);
         return mapper.readValue(json, javaType);
     }
@@ -46,7 +43,7 @@ public class MapperUtils{
         return false;
     }
 
-    public static String writeMap(Map<String, Object> map){
+    public static String writeMap(Map<String, Object> map) {
         try {
             return mapper.writeValueAsString(map);
         } catch (JsonProcessingException e) {
@@ -64,27 +61,61 @@ public class MapperUtils{
         return null;
     }
 
-    public static String originalOk(Object body){
-        return writeMap(returnModel(200,body));
+    public static String originalSuccess(Object... body) {
+        return writeMap(returnModel(200, body));
     }
 
-    public static String originalError(Object body) {
-        return writeMap(returnModel(500,body));
+    public static String originalFail(Object... body) {
+        return writeMap(returnModel(406, body));
     }
 
-    public static Map<String,Object> ok(Integer status, Object body)  {
-        return returnModel(200,body);
+    public static String originalForward(Object... body) {
+        return writeMap(returnModel(302, body));
     }
 
-    public static Map<String,Object> error(Integer status, Object body) {
-        return returnModel(500,body);
+    public static String originalDenied(Object... body) {
+        return writeMap(returnModel(403, body));
     }
 
-    private static Map<String,Object> returnModel(Integer status, Object body) {
-        Map<String,Object> map= new HashMap();
-        map.put("status",status);
-        map.put("body",body);
-        map.put("bodyText","");
+    public static String originalError(Object... body) {
+        return writeMap(returnModel(500, body));
+    }
+
+    public static String originalNotFound(Object... body) {
+        return writeMap(returnModel(404, body));
+    }
+
+    public static Map<String, Object> success(Object... body) {
+        return returnModel(200, body);
+    }
+
+    public static Map<String, Object> fail(Object... body) {
+        return returnModel(406, body);
+    }
+
+    public static Map<String, Object> forward(Object... body) {
+        return returnModel(302, body);
+    }
+
+    public static Map<String, Object> denied(Object... body) {
+        return returnModel(403, body);
+    }
+
+    public static Map<String, Object> error(Object... body) {
+        return returnModel(500, body);
+    }
+
+    private static Map<String, Object> returnModel(Integer status, Object[] body) {
+        Map<String, Object> map = new HashMap();
+        map.put("status", status);
+        map.put("bodyText", "");
+        if (body.length == 1) {
+            map.put("body", body[0]);
+            return map;
+        }
+        for (int index = 0; index < body.length; index += 2) {
+            map.put(body[index].toString(), body[index + 1]);
+        }
         return map;
     }
 }
