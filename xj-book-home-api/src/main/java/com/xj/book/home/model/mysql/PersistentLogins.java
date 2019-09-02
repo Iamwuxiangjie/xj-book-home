@@ -1,4 +1,4 @@
-package com.xj.book.home.model;
+package com.xj.book.home.model.mysql;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;

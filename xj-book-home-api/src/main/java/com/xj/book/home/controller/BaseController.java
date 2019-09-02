@@ -1,16 +1,11 @@
 package com.xj.book.home.controller;
 
 
-import com.xj.book.home.dao.RoleDao;
-import com.xj.book.home.model.User;
+import com.xj.book.home.model.mysql.User;
 import com.xj.book.home.service.BaseService;
 import com.xj.book.home.utils.MapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

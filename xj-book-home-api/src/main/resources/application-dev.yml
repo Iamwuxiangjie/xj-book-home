@@ -22,3 +22,7 @@ spring:
       host: localhost
       port: 27017
       database: xj-book-home
+  redis:
+    host: localhost
+    password:
+    port: 6379

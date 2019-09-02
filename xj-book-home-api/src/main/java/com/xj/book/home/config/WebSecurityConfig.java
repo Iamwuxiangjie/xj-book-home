@@ -1,8 +1,8 @@
 package com.xj.book.home.config;
 
 
-import com.xj.book.home.dao.UserDao;
-import com.xj.book.home.model.User;
+import com.xj.book.home.dao.mysql.UserDao;
+import com.xj.book.home.model.mysql.User;
 import com.xj.book.home.service.BaseService;
 import com.xj.book.home.service.UserService;
 import com.xj.book.home.utils.MapperUtils;

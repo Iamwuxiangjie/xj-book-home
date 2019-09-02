@@ -1,6 +1,6 @@
-package com.xj.book.home.dao;
+package com.xj.book.home.dao.mysql;
 
-import com.xj.book.home.model.RolePermission;
+import com.xj.book.home.model.mysql.RolePermission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

@@ -1,13 +1,11 @@
-package com.xj.book.home.model;
+package com.xj.book.home.model.mongo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
@@ -20,25 +18,21 @@ import java.util.Date;
  * Copyright (c) 2019, ewell.com All Rights Reserved.
  */
 @MappedSuperclass
-public class BaseEntity implements Serializable {
+public class MongoBaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @Column(length = 32)
+    @JsonIgnore
     @Getter
     @Setter
     private String id;
 
     @Getter
     @Setter
-    @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
     private Date createTime = new Date();
 
     @Getter
     @Setter
-    @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+08:00")
     private Date updateTime = new Date();
 }

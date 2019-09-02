@@ -1,21 +1,19 @@
-package com.xj.book.home.model;
+package com.xj.book.home.model.mysql;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 
 @Entity
 @Table(name="user")
-public class User extends BaseEntity {
+public class User extends MysqlBaseEntity {
 
     @Column(length = 32,unique=true,nullable = false)
     @Getter

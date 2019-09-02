@@ -1,18 +1,14 @@
-package com.xj.book.home.model;
+package com.xj.book.home.model.mysql;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
 
 
 @Entity
 @Table(name="role_permission")
-public class RolePermission extends BaseEntity{
+public class RolePermission extends MysqlBaseEntity {
 
 
     @Column(nullable = false)

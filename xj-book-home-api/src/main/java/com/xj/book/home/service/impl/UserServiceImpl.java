@@ -1,7 +1,7 @@
 package com.xj.book.home.service.impl;
 
-import com.xj.book.home.dao.UserDao;
-import com.xj.book.home.model.User;
+import com.xj.book.home.dao.mysql.UserDao;
+import com.xj.book.home.model.mysql.User;
 import com.xj.book.home.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

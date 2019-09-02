@@ -1,8 +1,8 @@
 package com.xj.book.home.service.impl;
 
-import com.xj.book.home.dao.RoleDao;
-import com.xj.book.home.dao.UserRoleDao;
-import com.xj.book.home.model.UserRole;
+import com.xj.book.home.dao.mysql.RoleDao;
+import com.xj.book.home.dao.mysql.UserRoleDao;
+import com.xj.book.home.model.mysql.UserRole;
 import com.xj.book.home.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
