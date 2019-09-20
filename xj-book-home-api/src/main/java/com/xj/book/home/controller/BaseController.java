@@ -18,15 +18,6 @@ public class BaseController {
     @Autowired
     private BaseService baseService;
 
-    @GetMapping("/")
-    public String index(@AuthenticationPrincipal User user){
-        if(Objects.isNull(user)){
-            return MapperUtils.originalForward("login");
-        }else{
-            return MapperUtils.originalForward("index");
-        }
-    }
-
     @GetMapping("/self")
     public String self(@AuthenticationPrincipal User user){
         if(Objects.isNull(user)){

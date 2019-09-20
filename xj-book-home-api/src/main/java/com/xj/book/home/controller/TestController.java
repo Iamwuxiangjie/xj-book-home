@@ -50,6 +50,8 @@ public class TestController {
             hasExistUser.setPassword("123");
             hasExistUser.setLastLoginTime(new Date());
             userDao.save(hasExistUser);
+        }else{
+            return hasExistUser;
         }
         Role hasExistRole=roleDao.findFirstByName("admin");
         if(Objects.isNull(hasExistRole)){

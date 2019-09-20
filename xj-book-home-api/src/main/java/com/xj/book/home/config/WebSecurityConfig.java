@@ -68,7 +68,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //登录权限控制
         config.and().authorizeRequests()
-                .antMatchers("/","/login","/test/**").permitAll()
+                .antMatchers(
+                        "/",
+                        "/login",
+                        "/test/**",
+                        "/favicon.ico",
+                        "/images/**",
+                        "/styles/**",
+                        "/scripts/**").permitAll()
                 .antMatchers("/web/admin/**").hasRole("admin")
                 .anyRequest().authenticated().and().csrf().disable()
                 .formLogin()
