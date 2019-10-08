@@ -1,0 +1,148 @@
+GET http://localhost:8001/test/redis/current-project?value=xj-book-home
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-10-08T101148.200.txt
+
+###
+
+GET http://localhost:8001/test/redis/current-project?value=xj-book-home
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-09-02T045522.200.txt
+
+###
+
+GET http://localhost:8001/redis/current-project?value=xj-book-home
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-09-02T045513.200.txt
+
+###
+
+GET http://localhost:8001/test/add/cm
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-09-02T041557.200.json
+
+###
+
+GET http://localhost:8001/test/add/jf
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-09-02T041438.200.json
+
+###
+
+GET http://localhost:8001/test/add/jf
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-09-02T041224.200.txt
+
+###
+
+GET http://localhost:8001/test/add/jf
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-09-02T041039.200.txt
+
+###
+
+GET http://localhost:8001/test/add/jf
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-09-02T040942.200.txt
+
+###
+
+GET http://localhost:8001/test/add/jf
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-09-02T040740.200.txt
+
+###
+
+GET http://localhost:8001/test/add/wuxj
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-27T034417.200.json
+
+###
+
+GET http://localhost:8001/test/add/wuxj
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-27T034326.500.json
+
+###
+
+GET http://localhost:8001/test/add/wuxj
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-26T072727.200.json
+
+###
+
+GET http://localhost:8001/test/add/wuxj
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-26T072259.500.json
+
+###
+
+POST http://localhost:8001/test/add/wuxj
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-26T072249.405.json
+
+###
+
+POST http://localhost:8001/login?username=wuxj&password=123
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-23T103952.200.json
+
+###
+
+POST https://localhost:8001/login?username=wuxj&password=123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST https://localhost:8001/login?username=wuxj&password=123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST https://www.taobao.com/
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-22T122525.200.html
+
+###
+
+POST http://localhost:8001/login?username=wuxj&password=123
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-08-21T114441.200.json
+
+###
+
